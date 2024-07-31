@@ -1,48 +1,56 @@
 {
-    "auth": {
-      "identityProviders": {
-        "azureActiveDirectory": {
-          "userDetailsClaim": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name",
-          "registration": {
-            "openIdIssuer": "https://login.microsoftonline.com/16b3c013-d300-468d-ac64-7eda0820b6d3",
-            "clientIdSettingName": "AZURE_CLIENT_ID",
-            "clientSecretSettingName": "AZURE_CLIENT_SECRET_APP_SETTING_NAME"
-          }
+  "auth": {
+    "identityProviders": {
+      "azureActiveDirectory": {
+        "userDetailsClaim": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name",
+        "registration": {
+          "openIdIssuer": "https://login.microsoftonline.com/16b3c013-d300-468d-ac64-7eda0820b6d3",
+          "clientIdSettingName": "AZURE_CLIENT_ID",
+          "clientSecretSettingName": "AZURE_CLIENT_SECRET_APP_SETTING_NAME"
         }
       }
-    },
-    "routes": [
-      {
-        "route": "/api/*",
-        "allowedRoles": ["authenticated"]
-      },
-      {
-        "route": "/admin",
-        "allowedRoles": ["admin"]
-      },
-      {
-        "route": "/login",
-        "rewrite": "/login.html"
-      },
-      {
-        "route": "/",
-        "rewrite": "/index.html"
-      }
-    ],
-    "navigationFallback": {
-      "rewrite": "/index.html",
-      "exclude": ["/images/*", "/css/*"]
-    },
-    "responseOverrides": {
-      "404": {
-        "rewrite": "/404.html"
-      },
-      "401": {
-        "redirect": "/login"
-      }
-    },
-    "globalHeaders": {
-      "X-Frame-Options": "DENY",
-      "X-Content-Type-Options": "nosniff"
     }
+  },
+  "routes": [
+    {
+      "route": "/*",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/api/*",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/admin",
+      "allowedRoles": ["admin"]
+    },
+    {
+      "route": "/login",
+      "rewrite": "/login.html"
+    },
+    {
+      "route": "/",
+      "rewrite": "/index.html"
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/images/*", "/css/*"]
+  },
+  "responseOverrides": {
+    "404": {
+      "rewrite": "/404.html"
+    },
+    "401": {
+      "redirect": "/login"
+    },
+    "401": {
+      "statusCode": 302,
+      "redirect": "/.auth/login/aad"
+    }
+  },
+  "globalHeaders": {
+    "X-Frame-Options": "DENY",
+    "X-Content-Type-Options": "nosniff"
   }
+}
