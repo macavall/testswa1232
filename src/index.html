@@ -11,14 +11,12 @@
 <body>
     <main>
     <h1>Vanilla JavaScript App</h1>
-    <p>Loading content from the API: <b id="name">...</b></p>
+    <p>Loading content from the API: <b id="name"></b></p>
     </main>
 
     <script>
-    (async function() {
-        var text2 = await( await fetch(`/api/message`)).text();
-        document.querySelector('#name').textContent = text2;
-    }());
+      const clientId = process.env.myswasecret;
+      document.querySelector('#name').textContent = clientId;
     </script>
 </body>
 
