@@ -17,10 +17,6 @@
       "allowedRoles": ["authenticated"]
     },
     {
-      "route": "/api/*",
-      "allowedRoles": ["authenticated"]
-    },
-    {
       "route": "/admin",
       "allowedRoles": ["admin"]
     },
@@ -40,9 +36,6 @@
   "responseOverrides": {
     "404": {
       "rewrite": "/404.html"
-    },
-    "401": {
-      "redirect": "/login"
     },
     "401": {
       "statusCode": 302,
