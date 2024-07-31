@@ -22,7 +22,7 @@
       },
       {
         "route": "/login",
-        "rewrite": "/login.html"
+        "rewrite": "/.auth/login/aad"
       },
       {
         "route": "/",
